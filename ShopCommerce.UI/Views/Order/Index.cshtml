@@ -1,0 +1,139 @@
+﻿@using Newtonsoft.Json
+@using ShopCommerce.EntityLayer.Concrete
+@using ShopCommerce.UI.Extensions
+@model Order
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    IEnumerable<Card> cards = ViewBag.cards;
+    User user = Context.Session.Get<User>("user");
+    decimal netPrice = 0;
+}
+
+<form action="/odemeyi-tamamla" method="post">
+    @if (ViewBag.error != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.error
+        </div>
+    }
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                <div class="col-md-7">
+                    <!-- Billing Details -->
+                    <div class="billing-details">
+                        <div class="section-title">
+                            <h3 class="title">Siparişi Tamamlayın</h3>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="text" name="first-name" placeholder="First Name" value="@user.FirstName" disabled>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="text" name="last-name" placeholder="Last Name" value="@user.LastName" disabled>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="email" name="email" placeholder="Email" value="@user.Mail" disabled>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="tel" name="tel" placeholder="Telephone" value="@user.PhoneNumber" disabled>
+                        </div>
+
+
+                        <div class="form-group">
+                            <!-- Order notes -->
+                            <div class="order-notes">
+                                <label>Adres</label>
+                                <select asp-items="ViewBag.Adresses" asp-for="AdressId" class="form-control"></select>
+                                <span asp-validation-for="AdressId" class="text-danger"></span>
+                            </div>
+                            <!-- /Order notes -->
+                        </div>
+
+
+                    </div>
+                    <!-- /Billing Details -->
+                </div>
+
+                <!-- Order Details -->
+                <div class="col-md-5 order-details">
+                    <div class="section-title text-center">
+                        <h3 class="title">Siparişiniz</h3>
+                    </div>
+                    <div class="order-summary">
+                        <div class="order-col">
+                            <div><strong>Ürün</strong></div>
+                            <div><strong>Fiyat</strong></div>
+                            <div><strong>Satıcı</strong></div>
+                        </div>
+
+                        <div class="order-products">
+                            @if (cards != null)
+                            {
+                                foreach (var card in cards)
+                                {
+                                    netPrice += (card.Product.NetPrice * card.ProductQuantity) + card.Product.CargoPrice;
+                                    <div class="order-col">
+                                        <div>@card.Product.Name</div>
+                                        <div>₺@card.Product.NetPrice</div>
+                                        <div>@card.Product.Seller.FullName</div>
+                                    </div>
+
+                                }
+
+                            }
+                        </div>
+                        <div class="order-col">
+                            <div>Kargo</div>
+                            <div><strong>₺@cards.Sum(x=>x.Product.CargoPrice)</strong></div>
+                        </div>
+                        <div class="order-col">
+                            <div><strong>Toplam</strong></div>
+                            <div><strong class="order-total">₺@netPrice</strong></div>
+                        </div>
+                    </div>
+
+
+                    <div class="payment-method">
+                        @if (ViewBag.PaymentTypes != null)
+                        {
+                            foreach (var item in (IEnumerable<PaymentType>)ViewBag.PaymentTypes)
+                            {
+                                <div class="input-radio">
+                                    <input type="radio" asp-for="PaymentTypeId" value="@item.PaymentTypeId" id="payment-@item.PaymentTypeId">
+                                    <label for="payment-@item.PaymentTypeId">
+                                        <span></span>
+                                        @item.Type
+                                    </label>
+                                    <div class="caption">
+                                        <p>@item.Description</p>
+                                    </div>
+                                </div>
+                            }
+
+                            <span asp-validation-for="PaymentTypeId" class="text-danger"></span>
+                        }
+
+
+
+                    </div>
+                    <button type="submit" class="primary-btn order-submit">Tamamla</button>
+                </div>
+                <!-- /Order Details -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+</form>
+
+<script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

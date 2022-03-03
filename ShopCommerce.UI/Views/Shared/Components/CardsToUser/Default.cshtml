@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ShopCommerce.EntityLayer.Concrete.Card>
+
+@foreach (var item in Model)
+{
+    <div class="product-widget">
+        <div class="product-img">
+            <img src="/electro-master/img/@item.Product.Image" alt="">
+        </div>
+        <div class="product-body">
+            <h3 class="product-name"><a href="@item.Product.Link">@item.Product.Name</a></h3>
+            <h4 class="product-price"><span class="qty">@item.ProductQuantity x </span>@item.Product.Price</h4>
+        </div>
+        <button class="delete" onclick="DeleteFromCard(@item.CardId)"><i class="fa fa-close"></i></button>
+    </div>
+}

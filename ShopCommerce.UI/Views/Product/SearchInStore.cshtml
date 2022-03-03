@@ -1,0 +1,231 @@
+﻿@model IEnumerable<ShopCommerce.EntityLayer.Concrete.Product>
+@{
+    ViewData["Title"] = "SearchInStore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Ana Sayfa</a></li>
+                    <li><a href="#">Mağazada Ara</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- ASIDE -->
+            <div id="aside" class="col-md-3">
+                <!-- aside Widget -->
+                <div class="aside">
+                    <h3 class="aside-title">Kategoriler</h3>
+                    <div class="checkbox-filter">
+                        <button class="btn btn-primary" onclick='Clear();'>Temizle</button>
+                        <div></div>
+                        @await Component.InvokeAsync("CategoriesForSearch")
+                    </div>
+                </div>
+                <!-- /aside Widget -->
+
+                <!-- aside Widget -->
+                <div class="aside">
+                    <h3 class="aside-title">Fiyat Aralığı</h3>
+                    <div class="price-filter">
+                        <div id="price-slider"></div>
+                        <div class="input-number price-min">
+                            <input id="price-min" type="number">
+                            <span class="qty-up">+</span>
+                            <span class="qty-down">-</span>
+                        </div>
+                        <span>-</span>
+                        <div class="input-number price-max">
+                            <input id="price-max" type="number">
+                            <span class="qty-up">+</span>
+                            <span class="qty-down">-</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /aside Widget -->
+
+                <!-- aside Widget -->
+                <div class="aside">
+                    <h3 class="aside-title">Marka</h3>
+                    <div class="checkbox-filter">
+                        @await Component.InvokeAsync("BrandForSearch")
+                    </div>
+                </div>
+                <!-- /aside Widget -->
+            </div>
+            <!-- /ASIDE -->
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+                <!-- store top filter -->
+                <div class="store-filter clearfix">
+                    <div class="store-sort">
+                       
+                    </div>
+                    <ul class="store-grid">
+
+                    </ul>
+                </div>
+                <!-- /store top filter -->
+                <!-- store products -->
+                <div id="LoadingGif" style="display:none">
+                    <img src="/electro-master/img/loading.gif" />
+                </div>
+                <div class="row" id="productList"></div>
+                <!-- /store products -->
+                <!-- store bottom filter -->
+                
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+@section scripts{
+<script>
+
+    
+    var _category = "";
+    var _brand = "";
+    var _url = "/Product/Search?pricemin=0"+"&&categoryname="+_category+"&&brandname="+_brand;
+    
+    var products = "";
+    var showDiv = $("#productList");
+
+    function Clear(){
+        products="";
+        _category = "";
+        _brand = "";
+        _url = "/Product/Search?pricemin=0"+"&&categoryname="+_category+"&&brandname="+_brand;        
+        showDiv.html(products);
+    }
+
+    function AddCategory(cate){
+        _category = cate;
+        _url = "/Product/Search?pricemin=0"+"&&categoryname="+_category+"&&brandname="+_brand;
+        return _url;
+    }
+
+    function AddBrand(brnd){
+        _brand = brnd;
+        _url = "/Product/Search?pricemin=0"+"&&categoryname="+_category+"&&brandname="+_brand;
+        return _url;
+    }
+
+    function GetProductByCategoryAjax(categoryName) {
+        
+       var urunler="";
+
+            $.ajax({
+                type: "Get",
+                url: AddCategory(categoryName),
+                dataType: "json",
+                success: function (data) {
+                    let jsonData = JSON.parse(data);
+                    $.each(jsonData, (index, value) => {
+                        urunler += `
+							<!-- product -->
+							<div class="col-md-4 col-xs-6">
+								<div class="product">
+									<div class="product-img">
+										<img src="${value.Image}" alt="${value.Name}">
+									</div>
+									<div class="product-body">
+										<p class="product-category">${value.CategoryName}</p>
+										<h3 class="product-name"><a href="/urun/${value.FixedName}/${value.Id}">${value.Name}</a></h3>
+										<h4 class="product-price">₺${value.Price} <del class="product-old-price">₺${value.OldPrice}</del></h4>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<div class="product-btns">
+											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+										</div>
+									</div>
+									<div class="add-to-cart">
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+									</div>
+								</div>
+							</div>
+							<!-- /product -->`;
+                        showDiv.html(urunler);
+                    });
+                }
+            });
+            console.log(_url);
+    }
+
+    function GetProductByBrandAjax(brandName) {
+        
+        var urunler="";
+            $.ajax({
+                type: "Get",
+                url: AddBrand(brandName),
+                dataType: "json",
+                success: function (data) {
+                    let jsonData = JSON.parse(data);
+                    $.each(jsonData, (index, value) => {
+                        urunler += `
+							<!-- product -->
+							<div class="col-md-4 col-xs-6">
+								<div class="product">
+									<div class="product-img">
+										<img src="${value.Image}" alt="${value.Name}">
+									</div>
+									<div class="product-body">
+										<p class="product-category">${value.CategoryName}</p>
+										<h3 class="product-name"><a href="/urun/${value.FixedName}/${value.Id}">${value.Name}</a></h3>
+										<h4 class="product-price">₺${value.Price} <del class="product-old-price">₺${value.OldPrice}</del></h4>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<div class="product-btns">
+											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+										</div>
+									</div>
+									<div class="add-to-cart">
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+									</div>
+								</div>
+							</div>
+							<!-- /product -->`;
+                        showDiv.html(urunler);
+                    });
+                }
+            });
+            console.log(_url);
+    }
+
+</script>
+}

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ShopCommerce.EntityLayer.Concrete.Ship>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Sellers/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<a asp-action="AllShips" asp-controller="Ship" class="btn btn-primary">Tüm Siparişler</a>
+<br />
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Sipariş Numarası
+            </th>
+            <th>
+                Adet
+            </th>
+            
+            <th>
+                Fiyat
+            </th>
+            <th>
+                Toplam Fiyat
+            </th>
+            <th>
+                Alınma Tarihi
+            </th>
+            <th>
+                Durum
+            </th>
+            <th>
+                Kullanıcı
+            </th>
+            <th>
+                Adress
+            </th>
+            <th>
+                Ürün
+            </th>
+            <th>
+                Düzenle
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+            <td>
+                ₺@Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                ₺@Html.DisplayFor(modelItem => item.NetPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipStatu.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adress.FullAdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                <a href="/seller/ship/edit/@item.ShipId" class="btn btn-primary">Düzenle</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

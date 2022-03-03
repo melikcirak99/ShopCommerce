@@ -1,0 +1,68 @@
+﻿@model ShopCommerce.EntityLayer.Concrete.Order
+@{
+    ViewData["Title"] = "MyOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <h1 class="text-center">Siparişiniz</h1>
+            @foreach (var item in ViewBag.Ships)
+            {
+                <div class="card col-sm-2">
+                    <img src="@item.Product.PhotoSrc" alt="@item.Product.Name" class="img-responsive">
+                    <div class="card-body">
+                        <h4 class="card-title">@item.Product.Name</h4>
+                        <p class="card-text">
+                            <div>
+                                <div class="text-warning">
+                                    Bu ürün <b>@item.Seller.FullName</b> tarafından gönderiliyor.
+                                </div>
+                                <br />
+                                <br />
+                                <b>DURUM</b> <span class="text-danger"><b>@item.ShipStatu.Status</b></span>
+
+                                @if (item.ShipStatu.ShipStatuId == 2)
+                                {
+                                    <Div>
+                                        <b>Kargo Şirketi</b> : @item.CargoFirm.Name <br>
+                                        <b>Kargo Takip Numarası</b> : @item.TrackingNumver
+                                    </Div>
+                                }
+
+                                <div>
+                                    <br /><br /><b>ADRES</b> : @item.Adress.FullAdress
+                                    <br /><br /><b>ADET</b> : @item.Qty
+                                    <br /><br /><b>FİYAT</b> : ₺@item.TotalPrice
+                                    <br /><br /><b>TARİH</b> : @item.ShipDate.ToShortDateString()
+                                </div>
+
+                                @if (item.ShipStatu.ShipStatuId == 1)
+                                {
+                                    <div>
+                                        <a href="/ship/cancel/@item.ShipId" class="btn btn-danger">İptal Et</a>
+                                    </div>
+                                }
+
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            }
+            <div class="col-md-12" style="margin-top:15px; padding:10px;">
+                <div></div>
+                <b class="text-primary">Toplam</b> : <b>₺@Model.TotalPrice</b><br />
+                <b class="text-primary">İsim</b>   : <b>@Model.User.FullName</b>
+
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

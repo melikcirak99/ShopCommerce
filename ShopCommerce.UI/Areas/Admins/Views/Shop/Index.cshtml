@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ShopCommerce.EntityLayer.Concrete.Shop>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admins/Views/Shared/_Layout.cshtml";
+}
+
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Mağaza Ekle</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                İsim
+            </th>
+            <th>
+                Kurucular
+            </th>
+            <th>
+                Kuruluş Tarihi
+            </th>
+            <th>
+                Onay Durumu
+            </th>
+            <th>
+                Durum
+            </th>
+            <th>
+                Linkler
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @foreach(var seller in item.Sellers){
+                    @seller.FullName <br />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShopStatus)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ShopId" class="btn btn-warning">Düzenle</a> |
+                <a asp-action="Details" asp-route-id="@item.ShopId" class="btn btn-info">İncele</a> |
+                <a asp-action="Delete" asp-route-id="@item.ShopId" class="btn btn-danger">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

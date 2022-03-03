@@ -1,0 +1,14 @@
+﻿@using ShopCommerce.EntityLayer.Concrete
+@model IEnumerable<Brand>
+
+@foreach (var item in Model)
+{
+    <div class="input-checkbox">
+        <input type="checkbox" id="brandcheck-@item.BrandId" onclick="GetProductByBrandAjax('@item.Name')">
+        <label for="brandcheck-@item.BrandId">
+            <span></span>
+            @item.Name
+            <small>(@item.Products.Count)</small>
+        </label>
+    </div>
+}

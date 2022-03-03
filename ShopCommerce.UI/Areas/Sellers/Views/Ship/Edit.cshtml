@@ -1,0 +1,51 @@
+﻿@model ShopCommerce.EntityLayer.Concrete.Ship
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Sellers/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="/seller/ship/edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ShipId" />
+            <input type="hidden" asp-for="Qty" />
+            <input type="hidden" asp-for="TotalPrice" />
+            <input type="hidden" asp-for="ShipDate" />
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="ShipNumber" />
+            <input type="hidden" asp-for="AdressId" />
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" asp-for="OrderId" />
+            <input type="hidden" asp-for="SellerId" />
+
+            <div class="form-group">
+                <label asp-for="ShipStatuId" class="control-label">Durum</label>
+                <select asp-for="ShipStatuId" class="form-control" asp-items="ViewBag.ShipStatu"></select>
+                <span asp-validation-for="ShipStatuId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CargoFirmId" class="control-label">Kargo Firması</label>
+                <select asp-for="CargoFirmId" class="form-control" asp-items="ViewBag.CargoFirm"></select>
+                <span asp-validation-for="CargoFirmId" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="TrackingNumver" class="control-label">Kargo Takip Numarası</label>
+                <input asp-for="TrackingNumver" class="form-control"/>
+                <span asp-validation-for="TrackingNumver" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

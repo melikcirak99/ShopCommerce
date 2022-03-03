@@ -1,0 +1,75 @@
+﻿@using ShopCommerce.EntityLayer.Concrete
+@model Seller
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" action="/Seller/Register" method="post">
+					<span class="login100-form-title p-b-26">
+						ShopCommerce'de Kendi Mağazanı Kur
+					</span>
+					@if(ViewBag.message != null){
+						<div class="alert alert-warning text-danger">
+							@ViewBag.message
+						</div>
+					}
+					@if(ViewBag.error != null){
+						<div class="alert alert-warning text-danger">
+							@ViewBag.error
+						</div>
+					}
+					<div class="wrap-input100 validate-input" data-validate = "adınızı girin">
+						<input class="input100" type="text" asp-for="FullName">
+						<span class="focus-input100" data-placeholder="İsim Soyisim"></span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate = "mağaza adı girin">
+						<input class="input100" type="text" asp-for="ShopName">
+						<span class="focus-input100" data-placeholder="Mağaza Adı"></span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input" data-validate = "ornek@gmail.com">
+						<input class="input100" type="text" asp-for="Mail">
+						<span class="focus-input100" data-placeholder="Email"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Şifre girin">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" asp-for="Password">
+						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Giriş
+							</button>
+						</div>
+					</div>
+					
+
+					<div class="text-center p-t-115">
+						<span class="txt1">
+							Hesabın Var mu?
+						</span>
+
+						<a class="txt2" href="/login/seller">
+							Giriş Yap
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>

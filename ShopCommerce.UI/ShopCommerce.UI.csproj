@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShopCommerce.BusinessLayer\ShopCommerce.BusinessLayer.csproj" />
+    <ProjectReference Include="..\ShopCommerce.DataAccessLayer\ShopCommerce.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\ShopCommerce.EntityLayer\ShopCommerce.EntityLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admins\Data\" />
+    <Folder Include="Areas\Admins\Models\" />
+    <Folder Include="Areas\Sellers\Data\" />
+    <Folder Include="Areas\Sellers\Models\" />
+    <Folder Include="Areas\Users\Data\" />
+    <Folder Include="Areas\Users\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\seller\assets\fonts\fa-solid-900.eot" />
+    <None Include="wwwroot\seller\assets\fonts\fa-solid-900.svg" />
+    <None Include="wwwroot\seller\assets\fonts\fa-solid-900.ttf" />
+    <None Include="wwwroot\seller\assets\fonts\fa-solid-900.woff" />
+    <None Include="wwwroot\seller\assets\fonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\seller\assets\fonts\Pe-icon-7-stroke.eot" />
+    <None Include="wwwroot\seller\assets\fonts\Pe-icon-7-stroke.svg" />
+    <None Include="wwwroot\seller\assets\fonts\Pe-icon-7-stroke.ttf" />
+    <None Include="wwwroot\seller\assets\fonts\Pe-icon-7-stroke.woff" />
+    <None Include="wwwroot\seller\assets\images\avatars\1.jpg" />
+    <None Include="wwwroot\seller\assets\images\avatars\10.jpg" />
+    <None Include="wwwroot\seller\assets\images\avatars\11.jpg" />
+    <None Include="wwwroot\seller\assets\images\avatars\12.jpg" />
+    <None Include="wwwroot\seller\assets\images\avatars\2.jpg" />
+    <None Include="wwwroot\seller\assets\images\avatars\3.jpg" />
+    <None Include="wwwroot\seller\assets\images\avatars\4.jpg" />
+    <None Include="wwwroot\seller\assets\images\avatars\5.jpg" />
+    <None Include="wwwroot\seller\assets\images\avatars\8.jpg" />
+    <None Include="wwwroot\seller\assets\images\avatars\9.jpg" />
+    <None Include="wwwroot\seller\assets\images\logo-inverse.png" />
+    <None Include="wwwroot\seller\assets\images\logo.png" />
+    <None Include="wwwroot\seller\assets\scripts\main.js" />
+    <None Include="wwwroot\seller\assets\styles\main.css" />
+  </ItemGroup>
+
+</Project>

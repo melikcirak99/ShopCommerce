@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ShopCommerce.EntityLayer.Concrete.Ship>
+
+@{
+    ViewData["Title"] = "AllShips";
+    Layout = "~/Areas/Sellers/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Gönderi Numarası
+            </th>
+            <th>
+                Fiyat
+            </th>
+            <th>
+                Adet
+            </th>
+            <th>
+                Toplam Fiyat
+            </th>
+            <th>
+                Durum
+            </th>
+            <th>
+                Alıcı
+            </th>
+            <th>
+                Kargo Firması
+            </th>
+            <th>
+                Adress
+            </th>
+            <th>
+                Ürün
+            </th>
+            <th>
+                İncele
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipNumber)
+            </td>
+            <td>
+                ₺@Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+            <td>
+                ₺@Html.DisplayFor(modelItem => item.NetPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipStatu.Status)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CargoFirm.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adress.FullAdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                <a href="/detail/@item.ShipId" class="btn btn-primary">Git</a>
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>

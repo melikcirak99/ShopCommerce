@@ -1,0 +1,50 @@
+﻿@model ShopCommerce.EntityLayer.Concrete.Adress
+
+@{
+    ViewData["Title"] = "adres ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<hr />
+<div class="row">
+    <div style="width:350px; margin:0 auto;">
+        <form asp-action="AddAdress">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Şehir</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">ilçe</label>
+                <input asp-for="District" class="form-control" />
+                <span asp-validation-for="District" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">mahalle</label>
+                <input asp-for="Neighborhood" class="form-control" />
+                <span asp-validation-for="Neighborhood" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">sokak</label>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">kapı no</label>
+                <input asp-for="DoorNumber" class="form-control" />
+                <span asp-validation-for="DoorNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+        <div>
+            <a href="/profil" class="btn btn-primary">Profil</a>
+        </div>
+    </div>
+
+</div>
+
+

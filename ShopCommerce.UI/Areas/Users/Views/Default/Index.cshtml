@@ -1,0 +1,26 @@
+﻿@model ShopCommerce.EntityLayer.Concrete.User
+
+@{
+    ViewData["Title"] = "Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btns {
+        margin: 2px 2px;
+    }
+
+        .btns a {
+            float: left;
+            margin: 0 5px;
+        }
+</style>
+<div class="container">
+    <div class="row" style="min-height:400px; margin:20px; 5px;">
+        <div class="btns">
+            <a class="btn btn-primary" href="/adresekle">Adres ekle</a>
+            <a class="btn btn-secondary" href="/siparisler">Siparişler</a>
+        </div>
+    </div>
+</div>
+
+

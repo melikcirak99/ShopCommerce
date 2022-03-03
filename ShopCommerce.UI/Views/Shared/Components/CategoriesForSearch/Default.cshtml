@@ -1,0 +1,15 @@
+﻿@using ShopCommerce.EntityLayer.Concrete
+@model IEnumerable<Category>
+
+
+@foreach (var item in Model)
+{
+    <div class="input-checkbox">
+        <input type="checkbox" id="check-@item.CategoryId" onclick='GetProductByCategoryAjax("@item.Name");'>
+        <label for="check-@item.CategoryId">
+            <span></span>
+            @item.Name
+            <small>(@item.Products.Count)</small>
+        </label>
+    </div>
+}

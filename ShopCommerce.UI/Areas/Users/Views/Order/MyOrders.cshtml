@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ShopCommerce.EntityLayer.Concrete.Order>
+
+@{
+    ViewData["Title"] = "MyOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Sipariş Numarası
+            </th>
+            <th>
+                Toplam Fiyat
+            </th>
+            <th>
+                Tarih
+            </th>
+            <th>
+                Ödeme Yöntemi
+            </th>
+            <th>
+                İncele
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                ₺@Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentType.Type)
+            </td>
+            <td>
+                <a href="/siparisim/@item.OrderId" class="btn btn-primary">git</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

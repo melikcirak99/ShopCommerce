@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Sellers/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.seller != null)
+{
+    @ViewBag.seller.SellerId
+}
+<div class="row">
+    <div class="col-md-6 col-xl-4">
+        <div class="card mb-3 widget-content bg-midnight-bloom">
+            <div class="widget-content-wrapper text-white">
+                <div class="widget-content-left">
+                    <div class="widget-heading">Toplam Sipariş</div>
+                    <div class="widget-subheading">2022</div>
+                </div>
+                <div class="widget-content-right">
+                    <div class="widget-numbers text-white"><span id="totalOrder"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-4">
+        <div class="card mb-3 widget-content bg-arielle-smile">
+            <div class="widget-content-wrapper text-white">
+                <div class="widget-content-left">
+                    <div class="widget-heading">Toplam Gelir</div>
+                    <div class="widget-subheading">1 aylık</div>
+                </div>
+                <div class="widget-content-right">
+                    <div class="widget-numbers text-white"><span id="totalPrice">₺</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-4">
+        <div class="card mb-3 widget-content bg-grow-early">
+            <div class="widget-content-wrapper text-white">
+                <div class="widget-content-left">
+                    <div class="widget-heading">Ürün</div>
+                    <div class="widget-subheading">Mağazadaki ürün adedi</div>
+                </div>
+                <div class="widget-content-right">
+                    <div class="widget-numbers text-white"><span id="productCount">0 adet</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+        <div class="card mb-3 widget-content bg-premium-dark">
+            <div class="widget-content-wrapper text-white">
+                <div class="widget-content-left">
+                    <div class="widget-heading">Products Sold</div>
+                    <div class="widget-subheading">Revenue streams</div>
+                </div>
+                <div class="widget-content-right">
+                    <div class="widget-numbers text-warning"><span>$14M</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @if (ViewBag.Products != null)
+    {
+        foreach (var item in ViewBag.Products)
+        {
+            <div class="card col-4 mb-2" style="width:18rem;">
+                <img src="@item.PhotoSrc" class="card-img-top" alt="@item.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5> <br />
+                    <a href="/seller/EditProduct/@item.ProductId" class="btn btn-primary">Düzenle</a>
+                    <a href="/seller/DeleteProduct/@item.ProductId" class="btn btn-danger">Sil</a>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header-tab-animation card-header">
+                <div class="card-header-title">
+                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                    Satış Raporu
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tabs-eg-77">
+                        <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                            <div class="widget-chat-wrapper-outer">
+                                <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                                    <canvas id="aylikSatis"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section sellerscripts{
+<script>
+    $(document).ready(function(){
+
+     
+
+        $.ajax({
+            type:"Get",
+            url:"/seller/TotalPrice",
+            success:function(data){
+                $("#totalPrice").html("₺"+data);
+            }
+        });
+
+         $.ajax({
+            type:"Get",
+            url:"/seller/productcount",
+            success:function(data){
+                $("#productCount").html(data);
+            }
+        });
+
+        $.ajax({
+            type:"Get",
+            url:"/seller/TotalShipCount",
+            success:function(data){
+                $("#totalOrder").html(data);
+            }
+        });
+
+        
+
+
+    });
+</script>
+}

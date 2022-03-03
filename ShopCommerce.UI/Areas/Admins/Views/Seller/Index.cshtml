@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ShopCommerce.EntityLayer.Concrete.Seller>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admins/Views/Shared/_Layout.cshtml";
+}
+
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Satıcı Ekle</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                İsim Soyisim
+            </th>
+            <th>
+                Mail
+            </th>
+            <th>
+                Şifre
+            </th>
+            <th>
+                Mağaza
+            </th>
+            <th>
+                Onay Durumu
+            </th>
+            <th>
+                LİNKLER
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shop.ShopId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isActive)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SellerId" class="btn btn-warning">Düzenle</a> 
+                <a asp-action="Details" asp-route-id="@item.SellerId" class="btn btn-info">incele</a> 
+                <a asp-action="Delete" asp-route-id="@item.SellerId" class="btn btn-danger">sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
